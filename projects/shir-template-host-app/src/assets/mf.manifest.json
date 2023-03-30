@@ -1,3 +1,13 @@
 {
-	"mfe1": "http://localhost:3000/remoteEntry.js"
+  "shir-template-mfe-app": {
+    "remoteEntry": "http://localhost:5001/remoteEntry.js",
+    "exposedModule": "./ExposedModule",
+    "ngModuleName": "ExposedModule",
+    "routePath": "mfe"
+  },
+  "shir-template-mfe-app-component": {
+    "remoteEntry": "http://localhost:5001/remoteEntry.js",
+    "exposedModule": "./ExposedComponent",
+    "componentName": "ExposedComponent"
+  }
 }
