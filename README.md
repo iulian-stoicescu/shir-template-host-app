@@ -1,27 +1,36 @@
 # ShirTemplateHostApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
+### What is this app
 
-## Development server
+This is a dummy example of a `host` (aka shell) application in the context of Module Federation,
+written in Angular 14.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### How was this app generated
 
-## Code scaffolding
+To generate this application and the default setup for module federation, the following commands
+were ran:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- `ng new shir-template-host-app --create-application="false"`
+- `cd shir-template-host-app`
+- `ng g application shir-template-host-app --routing=true --style=scss`
+- `ng add @angular-architects/module-federation@^14.3.0 --project shir-template-host-app --port 5002 --type dynamic-host`
 
-## Build
+Eventually other code changes were done manually and the commit messages can be observed for a
+detailed description.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### What does this app
 
-## Running unit tests
+The `mf.manifest.json` defines the configuration details for all the mfe resources (modules and
+components) that are available to be consumed by this app. The `remoteEntry` field is the only one
+that is mandatory, but we decided to provide more different details so that they are all kept inside
+that file (else we would still provide them but in other files). Then we created `mf.model.ts` to
+define the class types that are needed.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Module resources are lazily loaded inside the `app-routing.module.ts` (plenty of details in that
+file), which means that on each different route (so a single page) we can have a single micro
+frontend. But there might be cases where we want to load multiple micro frontends on the same page
+and in this case we can use component resources. In this application, we have
+created `LoadMfeComponentsComponent` (plenty of details in that file) that accepts as input
+parameter a string corresponding to the name of the component that we want to load from a mfe and
+then create it inside our template. We can see how easy the `ExposedComponent` from the mfe is
+integrated inside `home.component.html`.
