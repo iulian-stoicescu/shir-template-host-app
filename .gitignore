@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
+yarn.lock
+package-lock.json
 
 # Node
 /node_modules
